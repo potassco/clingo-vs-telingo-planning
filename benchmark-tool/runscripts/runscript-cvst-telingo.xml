@@ -1,0 +1,24 @@
+<runscript output="output-telingo">
+
+	<machine name="zuse" cpu="24x8xE5520@2.27GHz" memory="64GB"/>
+	
+  	<config name="pbs-generic" template="templates/seq-generic.sh"/>
+  
+	<system name="telingo" version="pmork" measures="clasp" config="pbs-generic">
+
+    		<setting name="Base" cmdline="'1 --stats --quiet=2 --time-limit=0'" tag="basic" pbstemplate="templates/single.pbs" />
+
+    </system>
+
+	<benchmark name="ALL">
+		<folder path="benchmarks/telingo/"/>
+	</benchmark>
+
+	<pbsjob name="telingo-job" timeout="86400" runs="1" script_mode="timeout" walltime="48:00:00" cpt="1" partition="long"/>
+
+	<project name="telingo-bmarks" job="telingo-job">
+		<runtag machine="zuse" benchmark="ALL" tag="*all*"/>
+	</project>
+
+</runscript>
+

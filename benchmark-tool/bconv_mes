@@ -1,0 +1,11 @@
+#!/bin/bash
+
+file=$1
+name=$2
+
+measures=time:t,error,ctime,csolve,ground0,groundN,models,timeout,restarts,conflicts,choices,domain,vars,cons,mem,error,memout
+
+rm -rf results/$name
+mkdir -p results/$name 
+
+cat $file | ./bconv -m $measures > results/$name/$name.ods 2>> results/$name/$name.error
